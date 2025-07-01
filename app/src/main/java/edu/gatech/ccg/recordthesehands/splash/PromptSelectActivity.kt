@@ -39,7 +39,6 @@ class PromptSelectActivity : ComponentActivity() {
         CoroutineScope(Dispatchers.IO).launch {
           dataManager.setTutorialMode(false)
           dataManager.getPrompts()?.also {
-            it.promptIndex = 0
             it.savePromptIndex()
           }
 
@@ -61,7 +60,6 @@ class PromptSelectActivity : ComponentActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             dataManager.setTutorialMode(false)
             dataManager.getPrompts()?.also {
-              it.promptIndex = 0
               it.savePromptIndex()
           }
           withContext(Dispatchers.Main) {
