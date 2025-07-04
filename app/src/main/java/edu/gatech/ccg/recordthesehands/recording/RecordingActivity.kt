@@ -275,7 +275,7 @@ class RecordingActivity : AppCompatActivity(), WordPromptFragment.PromptDisplayM
      * Record video at 15 Mbps. At 1944x2592 @ 30 fps, this level of detail should be more
      * than high enough.
      */
-    private const val RECORDER_VIDEO_BITRATE: Int = 30_000_000
+    private const val RECORDER_VIDEO_BITRATE: Int = 15_000_000
 
     /**
      * Height, width, and frame rate of the video recording. Using a 4:3 aspect ratio allows us
@@ -1696,7 +1696,6 @@ class RecordingActivity : AppCompatActivity(), WordPromptFragment.PromptDisplayM
     val props = cameraManager.getCameraCharacteristics(cameraId)
 
     val sizes = props.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-    Log.i(TAG, "Supported video resolutions: ${sizes?.getOutputSizes(MediaRecorder::class.java)?.contentToString()}")
     Log.i(TAG, sizes.toString())
 
     fun hasAspectRatio(heightRatio: Int, widthRatio: Int, dim: Size): Boolean {
@@ -1718,7 +1717,7 @@ class RecordingActivity : AppCompatActivity(), WordPromptFragment.PromptDisplayM
           && (hasAspectRatio(heightRatio, widthRatio, it))
     }?.maxByOrNull { it.width * it.height }
 
-    val chosenSize = Size(3264, 2448)
+    val chosenSize = largestAvailableSize ?: Size(RECORDING_HEIGHT, RECORDING_WIDTH)
 
 
     Log.i(TAG, "Selected video resolution: ${chosenSize.width} x ${chosenSize.height}")
