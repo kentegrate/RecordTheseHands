@@ -77,9 +77,9 @@ class WordPromptFragment(
   /**
    * Experimental values for portrait, landscape, tablet, non-tablet reference video scaling.
    */
-  private val originalPortraitWidthScaleFactor = 0.45f
+  private val originalPortraitWidthScaleFactor = 0.8f
 
-  private val originalLandscapeWidthScaleFactor = 0.25f
+  private val originalLandscapeWidthScaleFactor = 0.35f
 
   private val splitPortraitWidthScaleFactor = 0.95f
 
@@ -198,8 +198,8 @@ class WordPromptFragment(
             resetPromptTypeConstraint()
             setFullScreen(videoView, videoViewParams, currentOrientation)
             fullScreenButton.visibility = View.GONE
-            minimizeScreenButton.visibility = View.VISIBLE
-            splitScreenButton.visibility = View.VISIBLE
+            minimizeScreenButton.visibility = View.GONE
+            splitScreenButton.visibility = View.GONE
             lastDisplayMode = PromptDisplayMode.FULL
             Log.i(TAG, "Enlarging video to full screen size")
           }
@@ -215,9 +215,9 @@ class WordPromptFragment(
               screenWidth,
               pixelDensity
             )
-            fullScreenButton.visibility = View.VISIBLE
+            fullScreenButton.visibility = View.GONE
             minimizeScreenButton.visibility = View.GONE
-            splitScreenButton.visibility = View.VISIBLE
+            splitScreenButton.visibility = View.GONE
             lastDisplayMode = PromptDisplayMode.ORIGINAL
           }
 
@@ -227,13 +227,13 @@ class WordPromptFragment(
             setSplitScreen(videoView, videoViewParams, currentOrientation, lastDisplayMode, screenWidth, pixelDensity)
             if (lastDisplayMode == PromptDisplayMode.ORIGINAL) {
               minimizeScreenButton.visibility = View.GONE
-              fullScreenButton.visibility = View.VISIBLE
+              fullScreenButton.visibility = View.GONE
             } else {
               fullScreenButton.visibility = View.GONE
-              minimizeScreenButton.visibility = View.VISIBLE
+              minimizeScreenButton.visibility = View.GONE
             }
             splitScreenButton.visibility = View.GONE
-            disableSplitScreenButton.visibility = View.VISIBLE
+            disableSplitScreenButton.visibility = View.GONE
             Log.i(TAG, "Splitting screen")
           }
 
@@ -249,13 +249,13 @@ class WordPromptFragment(
             )
             if (lastDisplayMode == PromptDisplayMode.ORIGINAL) {
               minimizeScreenButton.visibility = View.GONE
-              fullScreenButton.visibility = View.VISIBLE
+              fullScreenButton.visibility = View.GONE
               resetButtonPositions()
             } else if (lastDisplayMode == PromptDisplayMode.FULL) {
               fullScreenButton.visibility = View.GONE
-              minimizeScreenButton.visibility = View.VISIBLE
+              minimizeScreenButton.visibility = View.GONE
             }
-            splitScreenButton.visibility = View.VISIBLE
+            splitScreenButton.visibility = View.GONE
             disableSplitScreenButton.visibility = View.GONE
           }
 
@@ -272,9 +272,9 @@ class WordPromptFragment(
           )
           videoView.layoutParams = videoViewParams
           videoView.visibility = View.VISIBLE
-          fullScreenButton.visibility = View.VISIBLE
+          fullScreenButton.visibility = View.GONE
           minimizeScreenButton.visibility = View.GONE
-          splitScreenButton.visibility = View.VISIBLE
+          splitScreenButton.visibility = View.GONE
       }
     }
     // if (!hasVideo) {
@@ -320,7 +320,7 @@ class WordPromptFragment(
     if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
       if (isTablet) {
         videoViewParams.width = desiredPortraitWidthPx
-        videoViewParams.height = (videoViewParams.width * (9f / 16f)).toInt()
+        videoViewParams.height = (videoViewParams.width * (720f / 768f)).toInt()
         videoViewParams.topMargin = 10
         videoViewParams.topToBottom = R.id.promptView
         videoViewParams.bottomToBottom = LayoutParams.UNSET
@@ -328,7 +328,7 @@ class WordPromptFragment(
         videoViewParams.endToEnd = LayoutParams.PARENT_ID
       } else {
         videoViewParams.width = desiredPortraitWidthPx
-        videoViewParams.height = (videoViewParams.width * (9f / 16f)).toInt()
+        videoViewParams.height = (videoViewParams.width * (720f / 768f)).toInt()
         videoViewParams.topMargin = 10
         videoViewParams.topToBottom = R.id.promptView
         videoViewParams.bottomToBottom = LayoutParams.UNSET
@@ -338,7 +338,7 @@ class WordPromptFragment(
     } else if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
       if (isTablet) {
         videoViewParams.width = desiredLandscapeWidthPx
-        videoViewParams.height = (videoViewParams.width * (9f / 16f)).toInt()
+        videoViewParams.height = (videoViewParams.width * (720f / 768f)).toInt()
         videoViewParams.topToBottom = LayoutParams.UNSET
         videoViewParams.startToStart = LayoutParams.UNSET
         videoViewParams.endToEnd = LayoutParams.PARENT_ID
@@ -346,7 +346,7 @@ class WordPromptFragment(
         videoViewParams.bottomToBottom = LayoutParams.PARENT_ID
       } else {
         videoViewParams.width = desiredLandscapeWidthPx
-        videoViewParams.height = (videoViewParams.width * (9f / 16f)).toInt()
+        videoViewParams.height = (videoViewParams.width * (720f / 768f)).toInt()
         videoViewParams.topToBottom = LayoutParams.UNSET
         videoViewParams.startToStart = LayoutParams.UNSET
         videoViewParams.endToEnd = LayoutParams.PARENT_ID
@@ -383,14 +383,14 @@ class WordPromptFragment(
         videoViewParams.endToEnd = LayoutParams.PARENT_ID
         videoViewParams.startToStart = LayoutParams.PARENT_ID
         videoViewParams.bottomToBottom = LayoutParams.PARENT_ID
-        videoViewParams.height = (videoViewParams.width * (9f / 16f)).toInt()
+        videoViewParams.height = (videoViewParams.width * (648f / 768f)).toInt()
       } else {
         videoViewParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         videoViewParams.topToBottom = R.id.promptView
         videoViewParams.endToEnd = LayoutParams.PARENT_ID
         videoViewParams.startToStart = LayoutParams.PARENT_ID
         videoViewParams.bottomToBottom = LayoutParams.PARENT_ID
-        videoViewParams.height = (videoViewParams.width * (9f / 16f)).toInt()
+        videoViewParams.height = (videoViewParams.width * (648f / 768f)).toInt()
       }
     }
     videoView.layoutParams = videoViewParams

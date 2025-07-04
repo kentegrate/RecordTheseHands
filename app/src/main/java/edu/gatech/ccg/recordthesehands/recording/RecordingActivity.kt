@@ -560,9 +560,9 @@ class RecordingActivity : AppCompatActivity(), WordPromptFragment.PromptDisplayM
   /**
    * Experimental values for portrait, landscape, tablet, non-tablet camera preview scaling.
    */
-  private val originalPortraitWidthScaleFactor = 0.85f
+  private val originalPortraitWidthScaleFactor = 0.3f
 
-  private val originalLandscapeWidthScaleFactor = 0.5f
+  private val originalLandscapeWidthScaleFactor = 0.3f
 
   private val splitLandscapeWidthScaleFactor = 0.5f
 
