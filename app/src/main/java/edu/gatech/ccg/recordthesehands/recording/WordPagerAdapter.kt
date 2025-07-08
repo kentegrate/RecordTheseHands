@@ -33,6 +33,7 @@ import edu.gatech.ccg.recordthesehands.upload.Prompt
 import edu.gatech.ccg.recordthesehands.upload.Prompts
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 /**
@@ -59,7 +60,8 @@ class WordPagerAdapter(
       val prompt = recordingActivity.prompts.array[recordingActivity.sessionStartIndex + position]
       return WordPromptFragment(prompt, R.layout.word_prompt)
     } else if (position == numPromptPages) {
-      return SaveRecordingFragment(recordingActivity.prompts.array, R.layout.save_record)
+      val prompt = recordingActivity.prompts.array.slice(recordingActivity.sessionStartIndex.. recordingActivity.sessionStartIndex+position)
+      return SaveRecordingFragment(prompt as ArrayList<Prompt>, R.layout.save_record)
     } else {
       return RecordingListFragment(
         recordingActivity, R.layout.recording_list
