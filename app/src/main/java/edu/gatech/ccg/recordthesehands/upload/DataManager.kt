@@ -943,7 +943,7 @@ class DataManager(val context: Context) {
         "tutorialPromptsFilename",
         "promptIndex")) {
       Log.w(TAG, "Unable to download tutorial prompts file.")
-      returnValue = false
+      //returnValue = false
     }
     return returnValue
   }
