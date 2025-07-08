@@ -568,6 +568,7 @@ class RecordingActivity : AppCompatActivity(), WordPromptFragment.PromptDisplayM
 
   private val splitPortraitHeightScaleFactor = 0.5f
 
+  private val isStartButtonPressedMap = HashMap<Int, Boolean>()
   /**
    * Experimental scaling factor for the record button.
    */
@@ -734,7 +735,10 @@ class RecordingActivity : AppCompatActivity(), WordPromptFragment.PromptDisplayM
         dataManager.saveClipData(currentClipDetails!!)
 
         isSigning = true
+        isStartButtonPressedMap[currentPage] = true
+
         runOnUiThread {
+          sessionPager.isUserInputEnabled = true
           animateGoText()
         }
       }
@@ -1278,6 +1282,7 @@ class RecordingActivity : AppCompatActivity(), WordPromptFragment.PromptDisplayM
 
     sessionPager.adapter = WordPagerAdapter(this, prompts.useSummaryPage)
 
+    sessionPager.isUserInputEnabled = false // スワイプを初期状態で無効化
     // Set up swipe handler for the word selector UI
     sessionPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
       /**
@@ -1305,7 +1310,10 @@ class RecordingActivity : AppCompatActivity(), WordPromptFragment.PromptDisplayM
             dataManager.saveClipData(saveClipDetails)
           }
         }
+
         currentPage = sessionPager.currentItem
+        sessionPager.isUserInputEnabled = isStartButtonPressedMap[currentPage] ?: false
+
         super.onPageSelected(currentPage)
         if (endSessionOnClipEnd) {
           prompts.promptIndex += 1
