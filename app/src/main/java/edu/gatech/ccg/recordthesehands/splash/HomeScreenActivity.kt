@@ -216,7 +216,7 @@ class HomeScreenActivity : ComponentActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
           dataManager.setTutorialMode(false)
           dataManager.getPrompts()?.also {
-            it.savePromptIndex()
+           // it.savePromptIndex()
           }
 
           withContext(Dispatchers.Main) {
