@@ -40,7 +40,7 @@ SERVICE_ACCOUNT_EMAIL = f'{PROJECT_ID}@appspot.gserviceaccount.com'
 def get_data(username):
   """Obtain the clip and session data from firestore."""
   db = firestore.Client()
-  c_ref = db.collection(f'collector/users/{username}/data/save') # Changed from save_clip -> save in DPAN data
+  c_ref = db.collection(f'collector/users/{username}/data/save_clip') # Changed from save_clip -> save in DPAN data
   clips = list()
   sessions = list()
   for doc_data in c_ref.stream():
@@ -115,7 +115,13 @@ def get_clip_bounds_in_video(clip_data):
     clip_end = clip_data.get('swipeBackTimestamp')
   if not clip_end:
     return (None, None)
-
+  print(video_start)
+  if video_start.endswith('Z'):
+    video_start = video_start[:-1] + '+00:00'
+  if clip_start.endswith('Z'):
+    clip_start = clip_start[:-1] + '+00:00'
+  if clip_end.endswith('Z'):
+    clip_end = clip_end[:-1] + '+00:00'    
   video_start_time = datetime.datetime.fromisoformat(video_start)
   clip_start_time = datetime.datetime.fromisoformat(clip_start)
   clip_end_time = datetime.datetime.fromisoformat(clip_end)

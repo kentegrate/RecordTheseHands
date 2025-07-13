@@ -21,7 +21,8 @@
 import re
 
 # Match these accounts
-_MATCH_USERS = re.compile(r'^dqp\d{2}$')
+#_MATCH_USERS = re.compile(r'^dqp\d{2}$')
+_MATCH_USERS = re.compile(r'admin3')
 
 # stem name of the output video files
 _VIDEO_DUMP_ID = 'video_dump'
